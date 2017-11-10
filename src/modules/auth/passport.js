@@ -4,7 +4,7 @@ import LocalStrategy from 'passport-local';
 import AuthModel from './auth-model';
 
 const localOpts = {
-  usernameFiled: 'email',
+  usernameField: 'email',
 };
 
 const localLogin = new LocalStrategy(localOpts, async (email, password, done) => {
