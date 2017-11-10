@@ -5,6 +5,7 @@ const defaultConfig = {
 const config = {
   development: {
     DB_URL: 'mongodb://localhost/user-authentication-dev',
+    jWT_SECRET: 'meduimapi',
   },
 
   production: {

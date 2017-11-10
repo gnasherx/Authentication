@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import { hashSync, compareSync } from 'bcrypt-nodejs';
+import jwt from 'jsonwebtoken';
+import constants from '../../config/constants';
 
 const AuthSchema = new Schema({
   email: {
@@ -50,6 +52,26 @@ AuthSchema.methods = {
 
   authenticateUser(password) {
     return compareSync(password, this.password);
+  },
+
+  createToken() {
+    return jwt.sign({ _id: this._id }, constants.jWT_SECRET );
+  },
+
+  toAuthJSON() {
+    return {
+      token: this.createToken(),
+      ...this.toJSON(),
+    };
+  },
+
+  // OVERRIDE THE toJSON METHOD FOR MAKE SURE THAT WE DON'T SEND PASSWORD.
+  toJSON() {
+    return {
+      _id: this.id,
+      username: this.username,
+      email: this.email,
+    };
   },
 };
 
