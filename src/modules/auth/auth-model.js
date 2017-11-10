@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
+import { hashSync, compareSync } from 'bcrypt-nodejs';
 
 const AuthSchema = new Schema({
   email: {
@@ -32,5 +33,24 @@ const AuthSchema = new Schema({
 AuthSchema.plugin(uniqueValidator, {
   message: '{VALUE} is already taken!',
 });
+
+AuthSchema.pre('save', function (next) {
+  if (this.isModified('password')) {
+    this.password = this._hashPassword(this.password);
+    return next();
+  }
+
+  return next();
+});
+
+AuthSchema.methods = {
+  _hashPassword(password) {
+    return hashSync(password);
+  },
+
+  authenticateUser(password) {
+    return compareSync(password, this.password);
+  },
+};
 
 export default mongoose.model('Auth', AuthSchema);
