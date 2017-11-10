@@ -1,0 +1,27 @@
+{
+  "name": "Authentication",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gnasherx/Authentication",
+  "author": "gnasherx <pawarg124@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cross-env": "^5.1.1",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.10.0",
+    "eslint-config-equimper": "^2.2.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.1"
+  }
+}
